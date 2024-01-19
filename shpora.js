@@ -821,9 +821,9 @@ _______________________________________________________
 
 // пример Get-запроса
 fetch("https://www.cbr-xml-daily.ru/daily_json.js")
-.then(function(data){
-  return data.json()
-}).then(function(data2){
+.then(function(data){       // приходит
+  return data.json()        // распарсивается
+}).then(function(data2){    // сюда попадает распарсенный   
    console.log(data2)
 })
 // пример универсального Post-запроса
@@ -899,3 +899,74 @@ anyThing(url)
 .catch(function(error) {
   console.log(error)
 })
+
+/////////////Object.function.call()/////////////////////////////////////
+obj.func.call(this, arg1, arg2) // метод  call указывает на какой обьект указывавет this
+
+
+let greet = function(){
+    let str = "Name is" + this.name
+    return str
+}
+
+let onePerson = {
+    name: "jon",
+    greet: greet
+}
+let twoPerson = {
+    name: "Bob",
+    greet: greet
+
+}
+console.log(TwoPerson.greet.call(OnePerson))
+
+// c аргументами
+
+let greet = function(elem){
+    let str = elem + "Name is " + this.name
+    return str
+}
+
+let onePerson = {
+    name: "jon",
+    greet: greet
+}
+let twoPerson = {
+    name: "Bob",
+    greet: greet
+}
+console.log(TwoPerson.greet.call(OnePerson, "hi! "))
+
+///////////////Object.function.apply()/////////////////////////////////////
+
+obj.func.apply(this, [arg1, arg2]) // работает аналогично call, но принимает массив аргументов вместо списка.
+let greet = function(elem, elem2){
+    let str = elem + elem2 + "Name is " + this.name
+    return str
+}
+let onePerson = {
+    name: "jon",
+    greet: greet
+}
+let twoPerson = {
+    name: "Bob",
+    greet: greet
+}
+console.log(TwoPerson.greet.apply(OnePerson, ["hi","! "]))
+
+//////////////////Function.prototype.bind()\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+fun.bind(this) // связывает функцию с обьектом с помощью this , при этом он не запускает и не изменячет функцию а
+               // возвращает новую функцию
+
+let greet = function(){
+    let str = "Name is " + this.name
+    return str
+}
+let onePerson = {
+    name: "jon",
+    greet: greet
+}
+let bound = greet.bind(OnePerson)
+console.log(bound())
+
+
